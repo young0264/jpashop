@@ -21,6 +21,14 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional //변경감지로 명확하게. merge쓰면 null의 경우가잇어
+    public void updateItem(Long itemId, String name, int price, int stockQuantity) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
+    }
+
     public List<Item> findItems() {
         return itemRepository.findAll();
     }
